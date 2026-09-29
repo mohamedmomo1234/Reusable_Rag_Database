@@ -68,32 +68,6 @@ def get_document_overview_samples(max_chunks=12):
     return random.sample(documents, max_chunks)
 
 
-
-
-# def get_document_overview_samples(max_chunks=20):
-
-#     """
-#     Instead of similarity-based retrieval, sample chunks evenly across
-#     the whole document so a broad summary request gets real coverage.
-#     """
-#     documents = get_all_documents()
-
-
-#     if not documents:
-#         return []
-
-#     total = len(documents)
-#     if total <= max_chunks:
-#         return documents
-
-#     step = total / max_chunks
-#     indices = [int(i * step) for i in range(max_chunks)]
-
-#     return [documents[i] for i in indices]
-
-
-
-
 @lru_cache(maxsize=1)
 def get_bm25():
     documents = get_all_documents()
