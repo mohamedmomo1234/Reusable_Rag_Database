@@ -162,7 +162,7 @@ Add your real `GROQ_API_KEY`.
 Put trusted documents in:
 
 ```text
-data/medical_docs/
+data/multy_docs/
 ```
 
 Then rebuild Chroma because the embedding model changed:
