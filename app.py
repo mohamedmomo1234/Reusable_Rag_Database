@@ -37,7 +37,7 @@ st.set_page_config(
 
 @st.cache_resource
 def initialize_chroma():
-    chroma_path= path(CHROMA_DIR)
+    chroma_path= Path(CHROMA_DIR)
 
     if not chroma_path.exists() or not any(chroma_path.iterdir()):
 
