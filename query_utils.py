@@ -56,6 +56,17 @@ EXPANSIONS = {
     "primary key": "primary key المفتاح الأساسي",
     "foreign key": "foreign key المفتاح الأجنبي",
 
+    "create": "create command sql أنشئ إنشاء",
+    "database": "database db قاعدة بيانات",
+    "table": "table tables relation جدول جداول",
+    "create database": "create database command أنشئ قاعدة بيانات",
+    "create table": "create table command أنشئ جدول",
+    "drop": "drop command حذف",
+    "alter": "alter command تعديل",
+    "insert": "insert command إدراج",
+    "update": "update command تحديث",
+    "delete": "delete command حذف",
+    "select": "select command استعلام اختيار",
 }
 
 
