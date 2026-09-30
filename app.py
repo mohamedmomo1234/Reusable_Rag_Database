@@ -1,7 +1,7 @@
 import uuid
 import streamlit as st
 
-from pathlib import path
+from pathlib import Path
 
 from ingest import create_vector_database
 from config import CHROMA_DIR
