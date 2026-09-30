@@ -1,12 +1,17 @@
 import uuid
-
 import streamlit as st
+
+from pathlib import path
+
+from ingest import create_vector_database
+from config import CHROMA_DIR
 
 from config import (
     ADMIN_PASSWORD,
     APP_DESCRIPTION,
     APP_NAME,
     MAX_HISTORY_MESSAGES,
+    CHROMA_DIR,
 )
 from database import get_chat_history, save_chat
 from export_chat import chat_to_pdf, chat_to_text
@@ -30,6 +35,22 @@ st.set_page_config(
     layout="centered",
 )
 
+@st.cache_resource
+def initialize_chroma():
+    chroma_path= path(CHROMA_DIR)
+
+    if not chroma_path.exists() or not any(chroma_path.iterdir()):
+
+       create_vector_database(reset=True)
+    return True
+    
+try: 
+    initialize_chroma()
+    
+except Exception as exc:
+     st.error(f"Failed to initialize ChromaDB: {exc}")
+     st.stop()
+    
 st.title(f"🤖 {APP_NAME}")
 st.caption(APP_DESCRIPTION)
 
