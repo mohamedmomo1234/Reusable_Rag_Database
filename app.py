@@ -59,11 +59,11 @@ def is_greeting(question):
         "عامل ايه", "عامل إيه", "عامل اية", "ايه الاخبار", "ايه الدنيا","wie geht's","Wie geht's?",
         "عامل ازاي", "عامل إزاي", "ازيك يا صديق", "ازيك يا صديقى","يا صاحبى",
         "اهلا", "أهلا", "اهلا بيك", "أهلا بيك","صاحبى","ابو الصحاب",
-        "السلام عليكم", "سلام عليكم", "سلام عليك",
-        "صباح الخير", "مساء الخير", "good morning","Guten Morgen",
+        "السلام عليكم", "سلام عليكم", "سلام عليك","come va","apa kabarmu",
+        "صباح الخير", "مساء الخير", "good morning", "Guten Morgen", "ogenki","kakdela",
         "ازيك", "إزيك", "how are you", "How are you",
         "hi", "hello", "hey", "welcom", "Welcom", "Hi", "hallo","Super",
-        "good","goog","good work","super","Super", "nice", "very good", "thanks", "thank you", "عمل رائع", "شكرا", "بالتوفيق", "ممتاز","عمل جيد","Nice",
+        "good","goog","good work","super","ok" ,"Ok","Super", "nice", "very good", "thogenkianks", "thank you", "عمل رائع", "شكرا", "بالتوفيق", "ممتاز","عمل جيد","Nice",
     }
 
     return normalized in greetings
@@ -81,7 +81,7 @@ def is_content_scope_question(question):
     scope_keywords = [
         "عن ايه المحتوى", "عن إيه", "المحتوى عن اية",
         "المحتوى عن", "المادة عن", "الماده عن","Was ist der Inhalt?","Was Inhalt",
-        "بتفهم في ايه", "بتفهم في إيه",
+        "بتفهم في ايه", "بتفهم في إيه","concept",
         "الاسئله اللي", "الأسئلة التي", "اسئله ممكن",
         "المواضيع اللي", "المواضيع التي","der kurs","Kurs",
         "ايه المحتوى", "إيه المحتوى","topic", "Inhalt","inhalt",
@@ -105,9 +105,12 @@ def is_full_summary_question(question):
     )
 
     summary_keywords = [
-        "ملخص", " لخص الماده باختصار", "تلخيص", "هات ملخص الماده", "summarize course", "sumarize","zusammenfassung","Zusammenfassung",
-        "ملخص للماده", "ملخص المنهج", "ملخص الكورس", "summary course", "summary of the course", "summarize","summarise",
-        "summarize material", "give me a summary", "overview of the material", "overview material", "summarise course", "overview course",
+        "ملخص", " لخص الماده باختصار", "تلخيص", "هات ملخص الماده", "summarize course", 
+        "sumarize","zusammenfassung","Zusammenfassung",
+        "ملخص للماده", "ملخص المنهج", "ملخص الكورس", "summary course", "summary of the course", 
+        "summarize","summarise",
+        "summarize material", "give me a summary", "overview of the material", 
+        "overview material", "summarise course", "overview course",
     ]
     return any(keyword in normalized for keyword in summary_keywords)
 
@@ -119,9 +122,13 @@ def is_example_request(question):
     )
 
     example_markers = [
-        "امثله", "أمثلة", "مثال","question" ,"Question&Answer" ,"Question & Answer", "امثلة","ich hatte gerne beispiele","beispiele","Beispiele",
-        "سيناريو", "سيناريوهات", "هات اسئله واجابات","هات اسئله امتحان والاجابه","هات اسئله امتحانات","هات عدد اسئله من اسئله الامتحان",
-        "اسئله واجوبه", "أسئلة وأجوبة", "سؤال وجواب","هات عدد اسئله من اسئله امتحانات","هات عدد اسئله من اسئله الامتحانات","fragen","Fragen","Question",
+
+        "امثله", "أمثلة", "مثال", "question" , "questions" , "Question&Answer", "Question & Answer","scenario",
+        "امثلة","ich hatte gerne beispiele","beispiele","Beispiele","command","commands","code","give me a scenario","give me sql",
+        "سيناريو", "سيناريوهات", "هات اسئله واجابات","هات اسئله امتحان والاجابه","many to many","one to many","give me commands",
+        "هات اسئله امتحانات","هات عدد اسئله من اسئله الامتحان","اكتب كود","هات اوامر","هات علاقه","sql اكتب","give me command",
+        "اسئله واجوبه", "أسئلة وأجوبة", "سؤال وجواب","هات عدد اسئله من اسئله امتحانات","write sql","one to one","Query",
+        "هات عدد اسئله من اسئله الامتحانات", "fragen", "Fragen", "Question","relation","sql command","write a query",
     ]
 
     return any(marker in normalized for marker in example_markers)
@@ -234,7 +241,7 @@ if question:
             st.markdown(answer)
 
         elif is_full_summary_question(question):
-            documents = get_document_overview_samples(max_chunks=12)
+            documents = get_document_overview_samples(max_chunks=10)
             context = build_context(documents)
             sources = get_sources(documents)
 
@@ -257,7 +264,7 @@ if question:
             placeholder.markdown(answer)
 
         elif is_example_request(question):
-            documents = get_document_overview_samples(max_chunks=12)
+            documents = get_document_overview_samples(max_chunks=6)
             context = build_context(documents)
             sources = get_sources(documents)
 
@@ -377,3 +384,4 @@ with st.sidebar:
                 st.write(item)
         else:
             st.info("No stored chat history.")
+
